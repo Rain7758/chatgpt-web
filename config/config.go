@@ -30,7 +30,7 @@ type Configuration struct {
 	// GPT模型
 	Model string `json:"model"`
 	// 热度
-	Temperature      float64 `json:"temperature"`
+	Temperature      float32 `json:"temperature"`
 	TopP             float32 `json:"top_p"`
 	PresencePenalty  float32 `json:"presence_penalty"`
 	FrequencyPenalty float32 `json:"frequency_penalty"`
@@ -113,17 +113,17 @@ func LoadConfig() *Configuration {
 			config.MaxTokens = max
 		}
 		if Temperature != "" {
-			temp, err := strconv.ParseFloat(Temperature, 64)
+			temp, err := strconv.ParseFloat(Temperature, 32)
 			if err != nil {
 				logger.Danger(fmt.Sprintf("config Temperature err: %v ,get is %v", err, Temperature))
 				return
 			}
-			config.Temperature = temp
+			config.Temperature = float32(temp)
 		}
 		if TopP != "" {
 			temp, err := strconv.ParseFloat(TopP, 32)
 			if err != nil {
-				logger.Danger(fmt.Sprintf("config Temperature err: %v ,get is %v", err, TopP))
+				logger.Danger(fmt.Sprintf("config TopP err: %v ,get is %v", err, TopP))
 				return
 			}
 			config.TopP = float32(temp)
@@ -131,7 +131,7 @@ func LoadConfig() *Configuration {
 		if FrequencyPenalty != "" {
 			temp, err := strconv.ParseFloat(FrequencyPenalty, 32)
 			if err != nil {
-				logger.Danger(fmt.Sprintf("config Temperature err: %v ,get is %v", err, FrequencyPenalty))
+				logger.Danger(fmt.Sprintf("config FrequencyPenalty err: %v ,get is %v", err, FrequencyPenalty))
 				return
 			}
 			config.FrequencyPenalty = float32(temp)

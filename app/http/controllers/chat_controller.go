@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"context"
-	"github.com/869413421/chatgpt-web/pkg/types"
 	"net"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/869413421/chatgpt-web/pkg/types"
 
 	gogpt "github.com/sashabaranov/go-openai"
 	"golang.org/x/net/proxy"
@@ -115,6 +116,7 @@ func (c *ChatController) Completion(ctx *gin.Context) {
 		req := gogpt.CompletionRequest{
 			Model:            cnf.Model,
 			MaxTokens:        cnf.MaxTokens,
+			Temperature:      cnf.Temperature,
 			TopP:             cnf.TopP,
 			FrequencyPenalty: cnf.FrequencyPenalty,
 			PresencePenalty:  cnf.PresencePenalty,
